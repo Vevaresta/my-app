@@ -3,3 +3,18 @@
 } @else {
     <p>No products found!</p>
 }
+
+<ul class="pill-group">
+    @for (product of products; track product.id; let i =$index){
+        <li class="pill">
+            @switch (product.title) {
+                @case ("Keyboard"){"K"}
+                @case ("Microphone"){"M"}
+                @default{"sss"}
+            }
+            {{product.title}}
+        </li>
+    }@empty {
+        <p>No products found!</p>
+    }
+</ul>
