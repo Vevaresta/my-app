@@ -13,6 +13,10 @@ export class ProductList {
     {id: 2, title: "Microphone"},
     {id: 3, title: "Web camera"},
     {id: 4, title: "Tablet"}
+
   ];
+  selectedProduct: Product | undefined;
+
+  
 
 }
