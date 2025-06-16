@@ -5,14 +5,14 @@ import { Product } from '../product';
   selector: 'app-product-detail',
   imports: [],
   templateUrl: './product-detail.html',
-  styleUrl: './product-detail.css'
+  styleUrl: './product-detail.css',
 })
 export class ProductDetail {
   product = input<Product>();
 
-  added = output();
+  added = output<Product>();
 
   addToCart() {
-    this.added.emit();
+    this.added.emit(this.product()!);
   }
 }
