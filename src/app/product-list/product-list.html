@@ -23,6 +23,9 @@
     <p>You selected:
         <strong>{{selectedProduct.title}}</strong>
     </p> -->
-<app-product-detail [product]="selectedProduct"></app-product-detail>
+<app-product-detail 
+    [product]="selectedProduct"
+    (added)="onAdded()"
+></app-product-detail>
 
 
