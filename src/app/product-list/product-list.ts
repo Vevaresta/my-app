@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, viewChild } from '@angular/core';
 import { Product } from '../product';
 import { ProductDetail } from '../product-detail/product-detail';
+import { SortPipe } from '../sort-pipe';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductDetail],
+  imports: [ProductDetail, SortPipe],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css'
 })
