@@ -3,12 +3,14 @@ import { Product } from '../product';
 import { ProductDetail } from '../product-detail/product-detail';
 import { SortPipe } from '../sort-pipe';
 import { ProductsService } from '../products-service';
+import { Favorites } from '../favorites/favorites';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductDetail, SortPipe],
+  imports: [ProductDetail, SortPipe, Favorites],
   templateUrl: './product-list.html',
-  styleUrl: './product-list.css'
+  styleUrl: './product-list.css',
+  providers: [ProductsService]
 })
 export class ProductList implements OnInit {
   
