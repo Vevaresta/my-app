@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductDetail implements OnChanges{
 
+  // Child gets value from parent in product variable
   product = input<Product>();
 
   constructor(){
@@ -25,8 +26,7 @@ export class ProductDetail implements OnChanges{
 
     }
   }
-
-
+  // Child sends event to parent
   added = output<Product>();
 
   addToCart() {
