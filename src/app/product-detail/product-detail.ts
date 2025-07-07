@@ -1,6 +1,8 @@
 import { Component, input, OnChanges, output, SimpleChanges } from '@angular/core';
 import { Product } from '../product';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { ProductsService } from '../products-service';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,25 +13,20 @@ import { CommonModule } from '@angular/common';
 export class ProductDetail implements OnChanges{
 
   // Child gets value from parent in product variable
-  product = input<Product>();
+  product$: Observable<Product> | undefined;
 
-  constructor(){
-    console.log("Product:", this.product());
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    const product = changes["product"];
-    if (!product.isFirstChange()) {
-      const oldValue = product.previousValue;
-      const newValue = product.currentValue;
-      console.log("Old value", oldValue);
-      console.log("New value", newValue);
+  id = input<number>();
 
-    }
-  }
   // Child sends event to parent
-  added = output<Product>();
+  added = output();
+
+  constructor(private productService: ProductsService) {}
+  ngOnChanges(): void {
+    this.product$ = this.productService.getProduct(this.id()!);
+    }
+
 
   addToCart() {
-    this.added.emit(this.product()!);
+    this.added.emit();
   }
 }

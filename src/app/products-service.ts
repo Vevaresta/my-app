@@ -1,52 +1,26 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Product } from './product';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { APP_SETTINGS } from './app.settings';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor() { }
+  private productsUrl = inject(APP_SETTINGS).apiUrl + '/products';
+  constructor(private http: HttpClient) { }
 
-  private products: Product[] = [
-
-    { 
-        id: 1,
-        title: 'Keyboard',
-        price: 100,
-        categories: {
-          1: 'Computing',
-          2: 'Peripherals'
-      }
-      },
-      {
-        id: 2,
-        title: 'Microphone',
-        price: 35,
-        categories: { 3: 'Multimedia' }
-      },
-      {
-        id: 3,
-        title: 'Web camera',
-        price: 79,
-        categories: {
-        1: 'Computing',
-        3: 'Multimedia'
-      }
-      },
-      {
-        id: 4,
-        title: 'Tablet',
-        price: 500,
-        categories: { 4: 'Entertainment' }
-      }
-     
-      
-  ];
+  private products: Product[] = [];
 
   getProducts(): Observable<Product[]>{
-    return of(this.products);
+    const options = new HttpParams().set("limit", 10);
+    return this.http.get<Product[]>(this.productsUrl, {params: options});
+  }
+
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.productsUrl}/${id}`);
   }
     
 }
