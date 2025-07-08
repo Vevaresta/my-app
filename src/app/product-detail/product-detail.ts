@@ -1,4 +1,4 @@
-import { Component, input, OnChanges, output, SimpleChanges } from '@angular/core';
+import { Component, input, OnChanges, output } from '@angular/core';
 import { Product } from '../product';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -21,6 +21,7 @@ export class ProductDetail implements OnChanges{
   added = output();
 
   constructor(private productService: ProductsService) {}
+
   ngOnChanges(): void {
     this.product$ = this.productService.getProduct(this.id()!);
     }

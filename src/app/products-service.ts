@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Product } from './product';
-import { Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { APP_SETTINGS } from './app.settings';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -16,11 +16,16 @@ export class ProductsService {
 
   getProducts(): Observable<Product[]>{
     const options = new HttpParams().set("limit", 10);
-    return this.http.get<Product[]>(this.productsUrl, {params: options});
+    return this.http.get<Product[]>(this.productsUrl, {params: options})
+    .pipe(map(products => {
+      this.products = products;
+      return products;
+    }));
   }
 
   getProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.productsUrl}/${id}`);
+    const product = this.products.find(p => p.id === id);
+    return of(product!);
   }
     
 }
