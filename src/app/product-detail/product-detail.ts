@@ -20,6 +20,8 @@ export class ProductDetail implements OnChanges{
   // Child sends event to parent
   added = output();
 
+  deleted = output();
+
   constructor(private productService: ProductsService) {}
 
   ngOnChanges(): void {
@@ -33,5 +35,11 @@ export class ProductDetail implements OnChanges{
 
   changePrice(product: Product, price: string) {
     this.productService.updateProduct(product.id, Number(price)).subscribe();
+  }
+
+  remove(product: Product) {
+    this.productService.deleteProduct(product.id).subscribe(() => {
+      this.deleted.emit();
+    })
   }
 }
