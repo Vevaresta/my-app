@@ -61,3 +61,18 @@
   .pill-group svg {
     margin-inline-start: 0.25rem;
   }
+
+  .caption {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+path {
+  transition: fill 0.3s ease;
+  fill: var(--gray-400);
+}
+
+a:hover svg path {
+  fill: var(--gray-900);
+}
