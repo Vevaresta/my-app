@@ -6,7 +6,7 @@ import { Observable, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class Auth {
+export class AuthService {
 
   private accessToken = signal('');
   private authUrl = inject(APP_SETTINGS).apiUrl + "/auth";

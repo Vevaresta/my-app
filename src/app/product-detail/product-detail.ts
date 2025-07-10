@@ -3,6 +3,7 @@ import { Product } from '../product';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ProductsService } from '../products-service';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,7 +23,7 @@ export class ProductDetail implements OnChanges{
 
   deleted = output();
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductsService, public authService: AuthService) {}
 
   ngOnChanges(): void {
     this.product$ = this.productService.getProduct(this.id()!);

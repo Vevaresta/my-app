@@ -1,7 +1,10 @@
 <!-- this controls the layout of root component (app.ts), for sharing global components and router outlet  -->
 
 <style></style>
-<header>{{ settings.title }}</header>
+<header>
+  {{ settings.title }}
+  <app-auth></app-auth>
+</header>
 <main class="main">
   <div class="content">
      <app-product-list></app-product-list>
