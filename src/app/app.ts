@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { ProductList } from "./product-list/product-list";
 import { Copyright } from './copyright';
 import { APP_SETTINGS } from './app.settings';
@@ -9,7 +9,7 @@ import { Auth } from './auth/auth';
 // here goes all the components that I want to appear globally (on every page)
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProductList, Copyright, KeyLoggerComponent, Auth],
+  imports: [RouterOutlet, ProductList, Copyright, KeyLoggerComponent, Auth, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.css',
   standalone: true,
