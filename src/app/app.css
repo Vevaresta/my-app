@@ -106,3 +106,7 @@
   .menu-links a:hover {
   color: var(--gray-900);
 }
+
+.menu-links a.active {
+ color: var(--electric-violet);
+}
