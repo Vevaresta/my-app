@@ -17,7 +17,7 @@ export class ProductDetail implements OnInit{
   // Child gets value from parent in product variable
   product$: Observable<Product> | undefined;
 
-  id = input<number>();
+  id = input<string>();
 
 
   constructor(
@@ -28,11 +28,7 @@ export class ProductDetail implements OnInit{
 
 
   ngOnInit(): void {
-    this.product$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        return this.productService.getProduct(Number(params.get("id")));
-      })
-    );
+    this.product$ = this.productService.getProduct(Number(this.id()!));
   }
 
   addToCart() {
