@@ -20,23 +20,17 @@
 <ul class="pill-group">
     @for (product of products | sort; track product.id;)
     {
-        <li class="pill" (click)="selectedProduct = product">
+        <li class="pill">
             @switch (product.category) {
                 @case ("electronics") {e}
                 @case ("jewelry") {m}
                 @default {d}
             }
-            {{product.title}}
+            <a [routerLink]="[product.id]">{{product.title}}</a>
         </li>
     }@empty {
         <p>No products found!</p>
     }
 </ul>
-
-<app-product-detail
-    [id]="selectedProduct?.id"
-    (added)="onAdded()"
-    (deleted)="selectedProduct = undefined"
-></app-product-detail>
 
 

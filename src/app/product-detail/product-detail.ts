@@ -1,9 +1,10 @@
-import { Component, input, OnChanges, output } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { ProductsService } from '../products-service';
 import { AuthService } from '../auth-service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,36 +12,42 @@ import { AuthService } from '../auth-service';
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
-export class ProductDetail implements OnChanges{
+export class ProductDetail implements OnInit{
 
   // Child gets value from parent in product variable
   product$: Observable<Product> | undefined;
 
   id = input<number>();
 
-  // Child sends event to parent
-  added = output();
 
-  deleted = output();
+  constructor(
+    private productService: ProductsService, 
+    public authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router) {}
 
-  constructor(private productService: ProductsService, public authService: AuthService) {}
 
-  ngOnChanges(): void {
-    this.product$ = this.productService.getProduct(this.id()!);
-    }
-
+  ngOnInit(): void {
+    this.product$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        return this.productService.getProduct(Number(params.get("id")));
+      })
+    );
+  }
 
   addToCart() {
-    this.added.emit();
+
   }
 
   changePrice(product: Product, price: string) {
-    this.productService.updateProduct(product.id, Number(price)).subscribe();
+    this.productService.updateProduct(product.id, Number(price)).subscribe(() => {
+      this.router.navigate(["/products"]);
+    });
   }
 
   remove(product: Product) {
     this.productService.deleteProduct(product.id).subscribe(() => {
-      this.deleted.emit();
+      this.router.navigate(["/products"]);
     })
   }
 }
