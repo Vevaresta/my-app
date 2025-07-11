@@ -12,6 +12,7 @@ export const routes: Routes = [
     {path: "cart", component: Cart, canActivate: [authGuard], canDeactivate: [checkoutGuard]},
     {path: "products/new", component: ProductCreate},
     {path: "products/:id", component: ProductDetail},
+    {path: "user", loadChildren: () => import("./user.routes"), canMatch: [authGuard]},
     {path: '', redirectTo: "products", pathMatch: "full"},
     {path: '**', redirectTo: "products"}
 ];
