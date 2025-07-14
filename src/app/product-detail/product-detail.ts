@@ -19,7 +19,7 @@ export class ProductDetail implements OnInit{
   product$: Observable<Product> | undefined;
 
   id = input<string>();
-
+  price: number | undefined;
 
   constructor(
     private productService: ProductsService, 
@@ -37,7 +37,7 @@ export class ProductDetail implements OnInit{
   }
 
   changePrice(product: Product) {
-    this.productService.updateProduct(product.id, product.price).subscribe(() => {
+    this.productService.updateProduct(product.id, this.price!).subscribe(() => {
       this.router.navigate(["/products"]);
     });
   }
