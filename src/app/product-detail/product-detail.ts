@@ -1,14 +1,15 @@
 import { Component, input, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { CommonModule } from '@angular/common';
-import { Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ProductsService } from '../products-service';
 import { AuthService } from '../auth-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
@@ -35,8 +36,8 @@ export class ProductDetail implements OnInit{
 
   }
 
-  changePrice(product: Product, price: string) {
-    this.productService.updateProduct(product.id, Number(price)).subscribe(() => {
+  changePrice(product: Product) {
+    this.productService.updateProduct(product.id, product.price).subscribe(() => {
       this.router.navigate(["/products"]);
     });
   }

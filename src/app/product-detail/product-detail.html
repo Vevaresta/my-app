@@ -6,12 +6,14 @@
             <strong>{{product.title}}</strong>
         </p>
         <p>{{ product!.price | currency:"EUR"}}</p>
-        <input placeholder="New price" #price type="number"/>
-        <button
-            class="secondary"
-            (click)="changePrice(product, price.value)">
-            Change
-        </button>
+        
+        <form (ngSubmit)="changePrice(product)">
+            <input placeholder="New price" type="number" name="price" [(ngModel)]="product.price"/>
+
+            <button class="secondary" type="submit"> Change </button>
+        </form>
+
+
         <div class="pill-group">
             <p class="pill">{{ product.category}}</p>
             
