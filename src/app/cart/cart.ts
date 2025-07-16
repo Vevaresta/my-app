@@ -1,11 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Product } from '../product';
+import { CartService } from '../cart-service';
+import { ProductsService } from '../products-service';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
 })
-export class Cart {
+export class Cart implements OnInit {
+
+  cartForm = new FormGroup({
+    products: new FormArray<FormControl<number>>([])
+  });
+
+  products: Product[] = [];
+
+  constructor(
+    private cartService: CartService,
+    private productService: ProductsService
+  ){}
+
+
+  private getProducts() {
+    this.productService.getProducts().subscribe(products => {
+      this.cartService.cart?.products.forEach(item => {
+        const product = products.find(p => p.id === item.productId);
+        if (product) {
+          this.products.push(product);
+        }
+      });
+    });
+  }
+
+  
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+
+
 
 }

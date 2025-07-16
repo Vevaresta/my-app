@@ -6,6 +6,7 @@ import { ProductsService } from '../products-service';
 import { AuthService } from '../auth-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../cart-service';
 
 @Component({
   selector: 'app-product-detail',
@@ -25,15 +26,16 @@ export class ProductDetail implements OnInit{
     private productService: ProductsService, 
     public authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router,
+    private cartService: CartService) {}
 
 
   ngOnInit(): void {
     this.product$ = this.productService.getProduct(Number(this.id()!));
   }
 
-  addToCart() {
-
+  addToCart(id: number) {
+    this.cartService.addProduct(id).subscribe();
   }
 
   changePrice(product: Product) {
