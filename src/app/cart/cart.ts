@@ -35,9 +35,17 @@ export class Cart implements OnInit {
     });
   }
 
-  
+  private buildForm() {
+    this.products.forEach(() => {
+      this.cartForm.controls.products.push(
+        new FormControl(1, { nonNullable: true})
+      );
+    });
+  }
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.getProducts();
+    this.buildForm();
   }
 
 
