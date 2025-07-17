@@ -47,7 +47,4 @@ export class Cart implements OnInit {
     this.getProducts();
     this.buildForm();
   }
-
-
-
 }
